@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>신지드 - 전사의 그림자 (HTML5 버전)</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="battle-animations.css" />
+</head>
+<body>
+  <div class="game-wrapper">
+    <header class="game-header">
+      <h1>신지드 - 전사의 그림자</h1>
+      <p class="subtitle">간단 HTML5 버전 (데모)</p>
+    </header>
+
+    <main class="game-main">
+      <section id="screen-title" class="screen active">
+        <div class="panel panel-centered">
+          <p class="panel-text">
+            암살단의 그림자에서 태어난 전사, <strong>신지드</strong>.<br />
+            짧은 데모 버전에서 기본 전투 시스템과 성장을 맛볼 수 있습니다.
+          </p>
+          <button id="btnStart" class="btn primary">새 게임 시작</button>
+        </div>
+      </section>
+
+      <section id="screen-town" class="screen">
+        <div class="layout">
+          <aside class="sidebar left">
+            <div class="panel">
+              <h2 class="panel-title">신지드</h2>
+              <div class="stat-row"><span>레벨</span><span id="stat-level">1</span></div>
+              <div class="stat-row with-bar">
+                <span>경험치</span>
+                <div class="stat-bar">
+                  <div id="expBar" class="stat-bar-fill exp"></div>
+                </div>
+                <span id="stat-exp">0 / 10</span>
+              </div>
+              <div class="stat-row with-bar">
+                <span>HP</span>
+                <div class="stat-bar">
+                  <div id="hpBar" class="stat-bar-fill hp"></div>
+                </div>
+                <span id="stat-hp">30 / 30</span>
+              </div>
+              <div class="stat-row with-bar">
+                <span>MP</span>
+                <div class="stat-bar">
+                  <div id="mpBar" class="stat-bar-fill mp"></div>
+                </div>
+                <span id="stat-mp">10 / 10</span>
+              </div>
+              <div class="stat-row"><span>힘</span><span id="stat-str">5</span></div>
+              <div class="stat-row"><span>민첩</span><span id="stat-agi">3</span></div>
+              <div class="stat-row"><span>지능</span><span id="stat-int">2</span></div>
+              <div class="stat-points-panel">
+                <div class="stat-points-header">
+                  <span>남은 스탯 포인트</span>
+                  <span id="stat-points-value">0</span>
+                </div>
+                <div class="stat-points-buttons">
+                  <button id="btnStatHp" class="btn tiny" type="button">HP+</button>
+                  <button id="btnStatMp" class="btn tiny" type="button">MP+</button>
+                  <button id="btnStatStr" class="btn tiny" type="button">힘+</button>
+                  <button id="btnStatAgi" class="btn tiny" type="button">민첩+</button>
+                  <button id="btnStatInt" class="btn tiny" type="button">지능+</button>
+                </div>
+                <p class="stat-points-hint">
+                  레벨업마다 스탯 포인트 2개를 얻습니다. HP/MP는 최대치의 10%씩, 힘/민첩/지능은 1씩 증가합니다.
+                </p>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h2 class="panel-title">장비</h2>
+              <div class="equip-layout">
+                <div class="inventory-section">
+                  <div class="slot-group-title">인벤토리</div>
+                  <div class="inventory-grid">
+                    <div class="inventory-slot" data-inventory-index="0">
+                      <div class="slot-content"></div>
+                    </div>
+                    <div class="inventory-slot" data-inventory-index="1">
+                      <div class="slot-content"></div>
+                    </div>
+                    <div class="inventory-slot" data-inventory-index="2">
+                      <div class="slot-content"></div>
+                    </div>
+                    <div class="inventory-slot" data-inventory-index="3">
+                      <div class="slot-content"></div>
+                    </div>
+                    <div class="inventory-slot" data-inventory-index="4">
+                      <div class="slot-content"></div>
+                    </div>
+                    <div class="inventory-slot" data-inventory-index="5">
+                      <div class="slot-content"></div>
+                    </div>
+                    <div class="inventory-slot" data-inventory-index="6">
+                      <div class="slot-content"></div>
+                    </div>
+                    <div class="inventory-slot" data-inventory-index="7">
+                      <div class="slot-content"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="equip-slots">
+                  <div class="equip-slot" data-slot-type="weapon">
+                    <div class="slot-label">무기</div>
+                    <div class="slot-content"></div>
+                  </div>
+                  <div class="equip-slot" data-slot-type="helmet">
+                    <div class="slot-label">투구</div>
+                    <div class="slot-content"></div>
+                  </div>
+                  <div class="equip-slot" data-slot-type="armor">
+                    <div class="slot-label">갑옷</div>
+                    <div class="slot-content"></div>
+                  </div>
+                  <div class="equip-slot" data-slot-type="shield">
+                    <div class="slot-label">방패</div>
+                    <div class="slot-content"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <section class="center">
+            <div class="panel map-panel">
+              <h2 class="panel-title">수련마을</h2>
+              <div class="map-grid">
+                <div class="map-cell map-cell-active">훈련장</div>
+                <div class="map-cell">휴식 장소</div>
+                <div class="map-cell">휴먼 게이트 입구</div>
+              </div>
+              <p class="hint">
+                훈련장 또는 휴먼 게이트 입구를 떠올리며 아래의 버튼으로 전투를 시작하세요.
+              </p>
+            </div>
+
+            <div class="panel action-panel">
+              <h2 class="panel-title">행동</h2>
+              <div class="action-buttons">
+                <button id="btnFight" class="btn primary">훈련 전투 시작</button>
+                <button id="btnRest" class="btn">마을에서 휴식</button>
+              </div>
+            </div>
+
+            <div class="panel dungeon-panel">
+              <h2 class="panel-title">던전 - 휴먼 게이트</h2>
+              <div class="dungeon-chapter">
+                <div class="dungeon-chapter-info">
+                  <div id="dungeonChapterLabel" class="dungeon-chapter-label">챕터 1 / 20</div>
+                  <div id="dungeonChapterName" class="dungeon-chapter-name">인간 병사</div>
+                </div>
+              </div>
+              <p id="dungeonChapterDesc" class="hint">
+                휴먼 게이트는 1챕터부터 순서대로만 도전할 수 있습니다. 이미 클리어한 챕터는 다시 도전할 수 없습니다.
+              </p>
+              <button id="btnDungeonStart" class="btn primary" type="button">휴먼 게이트 입장</button>
+            </div>
+          </section>
+
+          <aside class="sidebar right">
+            <div class="panel log-panel">
+              <h2 class="panel-title">로그</h2>
+              <div id="log" class="log"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="screen-battle" class="screen">
+        <div class="panel battle-panel">
+          <header class="battle-header">
+            <div class="battle-char">
+              <h2>신지드</h2>
+              <div class="bar-row">
+                <span>HP</span>
+                <div class="bar">
+                  <div id="playerHpBar" class="bar-fill hp"></div>
+                </div>
+                <span id="playerHpText">30 / 30</span>
+              </div>
+              <div class="bar-row">
+                <span>MP</span>
+                <div class="bar">
+                  <div id="playerMpBar" class="bar-fill mp"></div>
+                </div>
+                <span id="playerMpText">10 / 10</span>
+              </div>
+              <div class="bar-row">
+                <span>쉴드</span>
+                <div class="bar">
+                  <div id="playerShieldBar" class="bar-fill shield"></div>
+                </div>
+                <span id="playerShieldText">0 / 0</span>
+              </div>
+            </div>
+
+            <div class="battle-vs">VS</div>
+
+            <div class="battle-char enemy">
+              <h2 id="enemyName">훈련용 허수아비</h2>
+              <div class="bar-row">
+                <span>HP</span>
+                <div class="bar">
+                  <div id="enemyHpBar" class="bar-fill hp enemy"></div>
+                </div>
+                <span id="enemyHpText">20 / 20</span>
+              </div>
+            </div>
+          </header>
+
+          <div class="battle-stage">
+            <div class="battle-actor battle-actor-player">
+              <div id="playerSprite" class="actor-sprite player-idle"></div>
+            </div>
+            <div class="battle-actor battle-actor-enemy">
+              <div id="enemySprite" class="actor-sprite enemy-idle"></div>
+            </div>
+          </div>
+
+          <div class="battle-body">
+            <div class="panel battle-log-panel">
+              <h3 class="panel-title">전투 로그</h3>
+              <div id="battleLog" class="log"></div>
+            </div>
+
+            <div class="panel battle-action-panel">
+              <h3 class="panel-title">명령</h3>
+              <div class="battle-buttons">
+                <button id="btnCmdAttack" class="btn primary">공격</button>
+                <button id="btnCmdSkill" class="btn">강격 (MP 3)</button>
+                <button id="btnCmdGuard" class="btn">방어</button>
+                <button id="btnCmdRun" class="btn">도망</button>
+              </div>
+              <p class="hint">명령을 선택하면 턴이 진행됩니다.</p>
+            </div>
+          </div>
+
+          <footer class="battle-footer">
+            <button id="btnBackToTown" class="btn" disabled>마을로 돌아가기</button>
+          </footer>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,123 @@
+.battle-stage {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 8px 4px 14px;
+  min-height: 80px;
+}
+
+.battle-actor {
+  width: 40%;
+  display: flex;
+}
+
+.battle-actor-player {
+  justify-content: flex-start;
+}
+
+.battle-actor-enemy {
+  justify-content: flex-end;
+}
+
+.actor-sprite {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgba(148, 163, 184, 0.5),
+    0 14px 30px rgba(15, 23, 42, 0.9);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* 신지드 - 그림자의 닌자 스프라이트 */
+.player-idle {
+  background-image: url("assets/sinjid-idle.png");
+  background-color: transparent;
+  animation: idle-breathe 1.2s ease-in-out infinite;
+}
+
+/* 대기 중 호흡 애니메이션 */
+@keyframes idle-breathe {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+.enemy-idle {
+  background-image: url("assets/enemy-slime.png");
+  background-color: #f97316;
+}
+
+@keyframes attack-swing-right {
+  0% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(16px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes attack-swing-left {
+  0% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(-16px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.player-attack {
+  animation: attack-swing-right 0.25s ease-out;
+}
+
+.enemy-attack {
+  animation: attack-swing-left 0.25s ease-out;
+}
+
+@keyframes hit-shake-right {
+  0% {
+    transform: translateX(0);
+    filter: brightness(1);
+  }
+  30% {
+    transform: translateX(6px);
+    filter: brightness(1.4);
+  }
+  100% {
+    transform: translateX(0);
+    filter: brightness(1);
+  }
+}
+
+@keyframes hit-shake-left {
+  0% {
+    transform: translateX(0);
+    filter: brightness(1);
+  }
+  30% {
+    transform: translateX(-6px);
+    filter: brightness(1.4);
+  }
+  100% {
+    transform: translateX(0);
+    filter: brightness(1);
+  }
+}
+
+.player-hit {
+  animation: hit-shake-right 0.2s ease-out;
+}
+
+.enemy-hit {
+  animation: hit-shake-left 0.2s ease-out;
+}
+
+
